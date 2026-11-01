@@ -1,2 +1,9 @@
 PKG_FFLAGS = -std=legacy -fallow-argument-mismatch -w
 PKG_LIBS = $(FLIBS)
+
+# X-13 makes discrete choices (transform, ARIMA model, outliers) that can
+# flip with small floating-point differences, so results depend on the
+# optimization level. Build the Fortran at -O2, like the Census makefile,
+# even when the build environment asks for something else, such as the -O0
+# that devtools::load_all() uses. The appended flag comes last, so it wins.
+%.o: FFLAGS += -O2

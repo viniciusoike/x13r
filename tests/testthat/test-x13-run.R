@@ -36,5 +36,18 @@ test_that("an invalid spec raises an R error and keeps the session alive", {
   expect_error(x13_run(spec), class = "x13r_error")
 
   spec <- local_fixture("airpassengers")
-  expect_no_error(x13_run(spec))
+  x13_run(spec)
+  expect_equal(
+    read_x13_table(paste0(spec, ".s11")),
+    expected_s11("airpassengers"),
+    tolerance = 1e-8
+  )
+})
+
+test_that("paths too long for X-13 are rejected before the run", {
+  spec <- file.path(tempdir(), strrep("a", 600), "iofile")
+  expect_error(x13_run(spec), class = "x13r_path_too_long")
+
+  spec <- local_fixture("airpassengers")
+  expect_error(x13_run(spec, flags = strrep("-", 600)), class = "x13r_path_too_long")
 })

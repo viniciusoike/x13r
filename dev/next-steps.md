@@ -28,6 +28,12 @@ against 1.20 s, because X-13's model search and SEATS dominate the run time.
   when internal polynomial or string buffers overflow, and any gfortran
   runtime error exits the process.
 - Global `COMMON` state makes concurrent runs in one process unsafe.
+- X-13 results depend on how the Fortran is compiled. Built at `-O0`, the
+  PIM-PF s11 table differs from the `-O2` build by up to 3%, because small
+  floating-point differences flip X-13's discrete choices. `src/Makevars`
+  pins `-O2` with a GNU make pattern rule. Other platforms and compilers
+  can still differ, for example x86_64 without fused multiply-add, so the
+  byte-identical fixture comparison may fail on CI runners.
 - `R CMD check` reports five warnings: Fortran I/O in compiled code,
   non-portable `PKG_FFLAGS`, non-standard file extensions in `src/`, a
   `STOP` call in `polynom.o`, and a clang header warning from the local
@@ -47,6 +53,8 @@ against 1.20 s, because X-13's model search and SEATS dominate the run time.
 3. Set up GitHub Actions `R CMD check` on Linux, macOS, and Windows. Then
    rename the include files to a standard extension in the import script,
    and find out which files actually need `-fallow-argument-mismatch`.
+   Compare each platform's fixture output with the `seasonal` binary on
+   the same platform, and decide which tolerance the tests should use.
 4. Design the user-facing interface in a separate planning round. The
    priorities are setting regressors (trading days, Easter, Carnival,
    user-defined series), setting outliers by date and type, and replacing
