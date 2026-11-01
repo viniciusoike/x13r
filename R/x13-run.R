@@ -13,6 +13,7 @@
 #' @keywords internal
 x13_run <- function(spec, flags = c("-n", "-s")) {
   spec <- normalizePath(spec, mustWork = FALSE)
+  check_arg_length(c(spec, flags))
   spc_file <- paste0(spec, ".spc")
 
   if (!file.exists(spc_file)) {
@@ -29,6 +30,25 @@ x13_run <- function(spec, flags = c("-n", "-s")) {
   }
 
   invisible(spec)
+}
+
+# X-13 stores each argument in a 512-character buffer (PFILCR in stdio.i)
+# and appends extensions such as ".spc" and ".log" to the spec path in
+# place. Longer arguments would be truncated or overflow, so reject them.
+x13_max_arg_bytes <- 500L
+
+check_arg_length <- function(args, call = rlang::caller_env()) {
+  too_long <- nchar(args, type = "bytes") > x13_max_arg_bytes
+  if (any(too_long)) {
+    cli::cli_abort(
+      c(
+        "X-13 arguments must be at most {x13_max_arg_bytes} bytes.",
+        "x" = "{.val {args[too_long]}} {?is/are} too long."
+      ),
+      class = c("x13r_path_too_long", "x13r_error"),
+      call = call
+    )
+  }
 }
 
 # Returns the ERROR lines that X-13 wrote to `<spec>.err`, named for
