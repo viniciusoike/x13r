@@ -1,0 +1,21 @@
+Package: x13r
+Title: In-Process X-13ARIMA-SEATS Seasonal Adjustment
+Version: 0.0.0.9000
+Authors@R: 
+    person("Vinicius", "Reginatto", , "viniciusoike@gmail.com", role = c("aut", "cre"))
+Description: Compiles the US Census Bureau X-13ARIMA-SEATS program into an
+    R package and runs it in the R process, without an external
+    executable.
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Suggests: 
+    here,
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
+Imports: 
+    cli,
+    rlang

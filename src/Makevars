@@ -1,0 +1,2 @@
+PKG_FFLAGS = -std=legacy -fallow-argument-mismatch -w
+PKG_LIBS = $(FLIBS)
