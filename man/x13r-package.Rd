@@ -8,8 +8,21 @@
 \description{
 Compiles the US Census Bureau X-13ARIMA-SEATS program into an R package and runs it in the R process, without an external executable.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/viniciusoike/x13r}
+  \item Report bugs at \url{https://github.com/viniciusoike/x13r/issues}
+}
+
+}
 \author{
-\strong{Maintainer}: Vinicius Reginatto \email{viniciusoike@gmail.com}
+\strong{Maintainer}: Vinicius Oike \email{viniciusoike@gmail.com} (\href{https://orcid.org/0009-0005-8015-9189}{ORCID}) [copyright holder]
+
+Other contributors:
+\itemize{
+  \item U.S. Census Bureau (X-13ARIMA-SEATS Fortran source in src/) [contributor]
+}
 
 }
 \keyword{internal}

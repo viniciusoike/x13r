@@ -1,2 +1,4 @@
 ^tools$
 ^data-raw$
+^dev$
+^README\.md$

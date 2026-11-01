@@ -1,0 +1,15 @@
+Files: *
+Copyright: 2026 Vinicius Oike
+License: MIT (see LICENSE)
+
+Files: src/*.f src/*.i src/*.cmn src/*.prm src/*.var
+Except: src/x13r_glue.f
+Copyright: Created by U.S. Government employees and not subject to copyright
+  in the United States (17 U.S.C. §105). The U.S. Department of Commerce
+  reserves the right to seek copyright protection in other countries and
+  grants users a royalty-free, nonexclusive license to use, copy, and create
+  derivative works of the software outside the United States.
+License: X-13ARIMA-SEATS license and disclaimer (see LICENSE)
+Source: https://www.census.gov/data/software/x13as.html
+Modified: src/aaamain.f and src/getxop.f are patched by
+  tools/import-x13-source.R.
